@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <link rel="stylesheet" type="text/css" href="style/style.css">
+ <title>Короткий тест</title>
+</head>
+<body>
+   <main class="page" id="app" v-cloak>
+    <h1 class="quiz__title">Тест на знание экономики</h1>
+    <form type="submit" class="quiz__form" @submit.prevent="nextQuestion">
+      <h2>Вопрос №{{ numberQuestion + 1 }}</h2>
+     <h3 class="quiz__header">
+      <!-- // Адам Смит писал книги по...  -->
+      {{ questions[numberQuestion].title }}
+     </h3>
+     <ul class="quiz__questions">
+      <li class="quiz__question" 
+      v-for="(answer, ind) of questions[numberQuestion].options" 
+      :key="ind"
+      >
+      <input type="radio" class="quiz__question-button" :value="answer.id" v-model="answerValue" @change="calculationScore(answer.score
+      )">{{ answer.title }}
+    </li>
+     </ul>
+     <button type="submit" class="quiz__button" :disabled="isDisabled">Ответить</button>
+    </form>
+    <div class="">{{ numberQuestion + 1  }} вопрос из {{ questions.length}}</div>
+    <h1>Общее количество баллов: {{ totalScore }}</h1>
+    <div class="quiz__footer" v-show="showResult">
+      <p class="footer__content">Вы правильно ответили на <span>{{ totalScore / 10}}</span> вопроса из <span></span>{{ questions.length }}</p>
+      <p class="footer__content">{{ message }}</p>
+      <button class="quiz__button" @click="resetDates">Начать заново</button>
+    </div>
+      
+   </main>
+
+ <script src="js/index.js"></script>
+ <script src="js/vue.js"></script>
+ <script src="js/app.js"></script>
+</body>
+</html>
